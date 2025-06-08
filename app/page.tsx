@@ -1,5 +1,6 @@
 import { BlogList } from '@/components/blog/BlogList';
 import { getAllPosts } from '@/lib/blog';
+import { siteConfig } from '@/data/site-config';
 
 export default function Home() {
   const posts = getAllPosts();
@@ -8,11 +9,11 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
       <main className="container mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Tech Blog
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-4">
+            {siteConfig.name}
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            最新の技術トレンドやWeb開発に関する情報をお届けします
+            {siteConfig.description}
           </p>
         </div>
         
