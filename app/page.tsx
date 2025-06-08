@@ -1,4 +1,10 @@
 import Image from "next/image";
+import { 
+  HydrationTestBad, 
+  HydrationTestGoodUseEffect, 
+  HydrationTestGoodSyncExternalStore,
+  DoubleExecutionTest 
+} from "@/components/HydrationTest";
 
 export default function Home() {
   return (
@@ -24,6 +30,16 @@ export default function Home() {
             Save and see your changes instantly.
           </li>
         </ol>
+
+        <div className="w-full max-w-4xl space-y-6">
+          <h2 className="text-2xl font-bold mb-4">Hydration Test Components</h2>
+          <div className="space-y-4">
+            <HydrationTestBad />
+            <HydrationTestGoodUseEffect />
+            <HydrationTestGoodSyncExternalStore />
+            <DoubleExecutionTest />
+          </div>
+        </div>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
