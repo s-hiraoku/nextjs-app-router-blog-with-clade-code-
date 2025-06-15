@@ -131,7 +131,7 @@ export function ThemeDropdown() {
                   onClick={() => handleThemeChange(option.value)}
                   className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-left rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none ${
                     theme === option.value
-                      ? 'bg-blue-500/20 dark:bg-gray-800 text-blue-700 dark:!text-gray-50 font-semibold shadow-lg border border-blue-300 dark:border-gray-400'
+                      ? 'selected-theme-item'
                       : 'text-primary hover:bg-gray-100/50 dark:hover:bg-white/10'
                   }`}
                   role="menuitem"
@@ -141,7 +141,7 @@ export function ThemeDropdown() {
                   <span>{option.label}</span>
                   {theme === option.value && (
                     <svg 
-                      className="w-4 h-4 ml-auto text-blue-600 dark:text-blue-300" 
+                      className="w-4 h-4 ml-auto selected-theme-icon" 
                       fill="currentColor" 
                       viewBox="0 0 20 20"
                       aria-hidden="true"
