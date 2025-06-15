@@ -1,0 +1,27 @@
+
+> nextjs-app-router-blog-with-clade-code@0.1.0 dev /Volumes/SSD/development/nextjs-app-router-blog-with-clade-code
+> next dev
+
+   ▲ Next.js 15.3.3
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.10.107:3000
+
+ ✓ Starting...
+ ✓ Ready in 1418ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1188ms (791 modules)
+ GET / 200 in 1512ms
+ GET / 200 in 255ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1559ms (809 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1737ms
+ GET / 200 in 278ms
+ ✓ Compiled in 894ms (806 modules)
+ GET / 200 in 211ms
+ GET / 200 in 189ms
+ ✓ Compiled /_not-found in 394ms (455 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 626ms
+ ✓ Compiled in 742ms (806 modules)
+ GET / 200 in 107ms
+ ✓ Compiled in 437ms (806 modules)
+ GET / 200 in 120ms

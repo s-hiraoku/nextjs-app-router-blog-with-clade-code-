@@ -2,12 +2,40 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #6b6b6b;
+  --text-subtle: #8a8a8a;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --backdrop-blur: blur(20px);
+  --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.1);
+  --shadow-medium: 0 15px 35px rgba(31, 38, 135, 0.15);
+  --shadow-heavy: 0 20px 40px rgba(31, 38, 135, 0.2);
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #000000;
+  --foreground: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-muted: #b3b3b3;
+  --text-subtle: #8a8a8a;
+  --glass-bg: rgba(15, 15, 15, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --card-bg: rgba(20, 20, 20, 0.8);
+  --header-bg: rgba(10, 10, 10, 0.85);
+  --backdrop-blur: blur(20px);
+  --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.4);
+  --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --gradient-primary: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  --gradient-accent: linear-gradient(135deg, #fb7185 0%, #f472b6 100%);
 }
 
 @theme inline {
@@ -15,6 +43,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-blue-700: #1d4ed8;
+}
+
+.dark {
+  --color-blue-700: #f1f5f9;
+}
+
+/* ダークモード用のblue-700カラーの強制適用 */
+.dark .text-blue-700 {
+  color: #93c5fd !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,19 +74,143 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   /* テーマ切り替え時のスムーズなアニメーション */
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   /* レイアウトシフト防止 */
   min-height: 100vh;
   /* スクロールバーの幅を考慮した固定幅 */
   width: 100vw;
   overflow-x: hidden;
+  /* Liquid Grass風の背景エフェクト */
+  background: 
+    radial-gradient(circle at 20% 10%, rgba(34, 197, 94, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 25%),
+    radial-gradient(circle at 40% 50%, rgba(16, 185, 129, 0.06) 0%, transparent 30%),
+    radial-gradient(circle at 70% 70%, rgba(34, 197, 94, 0.12) 0%, transparent 35%),
+    radial-gradient(circle at 30% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 25%),
+    radial-gradient(circle at 90% 20%, rgba(14, 165, 233, 0.06) 0%, transparent 20%),
+    linear-gradient(135deg, rgba(34, 197, 94, 0.02) 0%, rgba(59, 130, 246, 0.02) 50%, rgba(16, 185, 129, 0.02) 100%),
+    var(--background);
+  background-attachment: fixed;
+}
+
+.dark body {
+  background: 
+    radial-gradient(circle at 20% 10%, rgba(34, 197, 94, 0.15) 0%, transparent 20%),
+    radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.12) 0%, transparent 25%),
+    radial-gradient(circle at 40% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 30%),
+    radial-gradient(circle at 70% 70%, rgba(34, 197, 94, 0.18) 0%, transparent 35%),
+    radial-gradient(circle at 30% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 25%),
+    radial-gradient(circle at 90% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 20%),
+    linear-gradient(135deg, rgba(34, 197, 94, 0.03) 0%, rgba(59, 130, 246, 0.03) 50%, rgba(16, 185, 129, 0.03) 100%),
+    var(--background);
 }
 
 /* ダークモードの基本設定 */
 .dark {
   color-scheme: dark;
+}
+
+/* テキストカラーユーティリティ */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-subtle {
+  color: var(--text-subtle);
+}
+
+/* ダークモード固有のテキストスタイル */
+.dark .text-heading {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark .text-body {
+  color: #e5e5e5;
+}
+
+.dark .text-caption {
+  color: #b3b3b3;
+}
+
+.dark .text-dimmed {
+  color: #8a8a8a;
+}
+
+/* Glassmorphism効果 */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-light);
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  box-shadow: var(--shadow-heavy);
+  transform: translateY(-2px);
+}
+
+.glass-header {
+  background: var(--header-bg);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-light);
+}
+
+/* モダンなボタンデザイン */
+.btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-heavy);
+}
+
+.btn-secondary {
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--foreground);
+  font-weight: 500;
+  padding: 12px 24px;
+  box-shadow: var(--shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
 }
 
 /* レイアウトシフト防止のためのコンテナスタビライザー */
@@ -61,35 +223,31 @@ body {
   box-sizing: border-box;
 }
 
-/* スクロールバーのダークモード対応 */
+/* スクロールバーのモダンデザイン */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-.dark ::-webkit-scrollbar-track {
-  background: #1f2937;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #4b5563;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: rgba(255, 255, 255, 0.4);
 }
 
 /* フォーカスリングの改善 */
@@ -100,13 +258,141 @@ body {
 
 /* テキスト選択の改善 */
 ::selection {
-  background-color: #3b82f6;
+  background: var(--gradient-primary);
   color: white;
 }
 
 .dark ::selection {
-  background-color: #60a5fa;
-  color: #1f2937;
+  background: var(--gradient-primary);
+  color: white;
+}
+
+/* モダンなテキストスタイル */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 浮遊アニメーション */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Liquid Grass風のアニメーション */
+@keyframes liquidMove {
+  0%, 100% { 
+    background-position: 0% 50%, 100% 50%, 50% 0%, 25% 100%, 75% 25%, 10% 90%, 0% 0%;
+  }
+  25% { 
+    background-position: 25% 75%, 80% 30%, 70% 20%, 45% 80%, 55% 45%, 30% 70%, 20% 10%;
+  }
+  50% { 
+    background-position: 50% 100%, 60% 10%, 90% 40%, 65% 60%, 35% 65%, 50% 50%, 40% 20%;
+  }
+  75% { 
+    background-position: 75% 25%, 40% 70%, 10% 60%, 85% 40%, 15% 85%, 70% 30%, 60% 30%;
+  }
+}
+
+.liquid-bg {
+  animation: liquidMove 20s ease-in-out infinite;
+}
+
+/* Liquid Glass Panel Effect */
+.liquid-panel {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(31, 38, 135, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.08) 0%,
+    rgba(59, 130, 246, 0.06) 25%,
+    rgba(16, 185, 129, 0.05) 50%,
+    rgba(6, 182, 212, 0.07) 75%,
+    rgba(14, 165, 233, 0.06) 100%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.liquid-panel:hover::before {
+  opacity: 1;
+}
+
+.liquid-panel:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 20px 40px rgba(31, 38, 135, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.dark .liquid-panel {
+  background: rgba(15, 15, 15, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dark .liquid-panel::before {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.12) 0%,
+    rgba(59, 130, 246, 0.1) 25%,
+    rgba(16, 185, 129, 0.08) 50%,
+    rgba(6, 182, 212, 0.11) 75%,
+    rgba(14, 165, 233, 0.1) 100%
+  );
+}
+
+.dark .liquid-panel:hover {
+  background: rgba(20, 20, 20, 0.7);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* グロー効果 */
+.glow {
+  box-shadow: 0 0 20px rgba(103, 126, 234, 0.3);
+}
+
+.dark .glow {
+  box-shadow: 0 0 20px rgba(74, 144, 226, 0.4);
 }
 
 /* アニメーション無効化の対応 */

@@ -44,24 +44,24 @@ const Header: React.FC = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        setIsSearchOpen(!isSearchOpen);
+        setIsSearchOpen(true);
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isSearchOpen]);
+  }, []);
 
   return (
     <>
       {/* Main Header */}
-      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-700">
+      <header className="sticky top-0 z-50 w-full glass-header liquid-panel">
         <div className="mx-auto max-w-4xl">
           <div className="flex h-16 items-center justify-between px-4 sm:px-6">
             {/* Logo */}
             <Link 
               href="/" 
-              className="text-xl font-bold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              className="text-xl font-bold text-gradient hover:scale-105 transition-all duration-300"
             >
               {siteConfig.name}
             </Link>
@@ -72,7 +72,7 @@ const Header: React.FC = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  className="text-sm font-medium text-secondary hover:text-primary transition-colors"
                 >
                   {item.name}
                 </Link>
@@ -83,8 +83,8 @@ const Header: React.FC = () => {
             <div className="flex items-center space-x-2">
               {/* Search */}
               <button 
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2.5 text-secondary hover:text-primary glass rounded-xl transition-all duration-300 hover:scale-105 hover:glow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 aria-label="検索 (⌘+K)"
                 title="検索 (⌘+K)"
               >
@@ -100,7 +100,7 @@ const Header: React.FC = () => {
               {/* Mobile menu button */}
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="md:hidden p-2.5 text-secondary hover:text-primary glass rounded-xl transition-all duration-300 hover:scale-105"
                 aria-label="メニューを開く"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,14 +112,14 @@ const Header: React.FC = () => {
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+            <div className="md:hidden liquid-panel border-t border-gray-200/20 dark:border-gray-700/20 m-4 rounded-2xl overflow-hidden">
               <div className="px-4 py-4 space-y-2">
                 {siteConfig.navigation.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    className="block px-3 py-2 text-sm font-medium text-secondary hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -141,7 +141,7 @@ const Header: React.FC = () => {
       {isScrolled && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 z-40 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          className="fixed bottom-8 right-8 z-40 p-3 liquid-panel rounded-full shadow-lg text-secondary hover:text-primary hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
           aria-label="トップに戻る"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
