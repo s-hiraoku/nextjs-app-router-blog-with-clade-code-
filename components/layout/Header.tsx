@@ -1,15 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { siteConfig } from '@/data/site-config';
+import { ThemeDropdown } from '@/components/ui/ThemeDropdown';
+import { SearchModal } from '@/components/ui/SearchModal';
+import { getAllPosts } from '@/lib/blog';
+import { Post } from '@/types/blog';
 
 const Header: React.FC = () => {
-  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +23,21 @@ const Header: React.FC = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Load posts for search
+  useEffect(() => {
+    const loadPosts = async () => {
+      if (posts.length === 0) {
+        try {
+          const allPosts = await getAllPosts();
+          setPosts(allPosts);
+        } catch (error) {
+          console.error('Failed to load posts for search:', error);
+        }
+      }
+    };
+    loadPosts();
+  }, [posts]);
 
   // Handle search keyboard shortcut
   useEffect(() => {
@@ -66,43 +84,18 @@ const Header: React.FC = () => {
               {/* Search */}
               <button 
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="hidden sm:flex items-center space-x-2 px-3 py-2 text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <span>検索</span>
-                <div className="flex items-center space-x-1">
-                  <kbd className="px-1.5 py-0.5 text-xs bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500">⌘</kbd>
-                  <kbd className="px-1.5 py-0.5 text-xs bg-white dark:bg-gray-600 rounded border border-gray-300 dark:border-gray-500">K</kbd>
-                </div>
-              </button>
-
-              {/* Mobile search */}
-              <button 
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="sm:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                aria-label="検索"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                aria-label="検索 (⌘+K)"
+                title="検索 (⌘+K)"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
 
-              {/* Theme toggle */}
-              <button 
-                className="flex items-center rounded-lg border border-gray-300 dark:border-gray-600 p-2"
-                aria-label="カラーテーマを選択する"
-              >
-                {/* Light mode icon */}
-                <svg className="h-5 w-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                {/* Dark mode icon */}
-                <svg className="h-5 w-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
-              </button>
+
+              {/* Theme dropdown */}
+              <ThemeDropdown />
 
               {/* Mobile menu button */}
               <button 
@@ -138,33 +131,11 @@ const Header: React.FC = () => {
       </header>
 
       {/* Search Modal */}
-      {isSearchOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" onClick={() => setIsSearchOpen(false)}>
-          <div className="flex items-start justify-center min-h-screen pt-16 px-4">
-            <div 
-              className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700"
-              onClick={e => e.stopPropagation()}
-            >
-              <div className="p-4">
-                <div className="relative">
-                  <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                  <input
-                    type="text"
-                    placeholder="記事を検索..."
-                    className="w-full pl-10 pr-4 py-3 text-sm bg-gray-100 dark:bg-gray-700 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                    autoFocus
-                  />
-                </div>
-                <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
-                  検索結果がここに表示されます
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <SearchModal 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)} 
+        posts={posts}
+      />
 
       {/* Floating scroll to top button - appears on scroll */}
       {isScrolled && (
