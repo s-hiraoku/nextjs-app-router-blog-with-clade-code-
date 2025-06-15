@@ -1,136 +1,136 @@
-この Next.js App Router のコードを包括的にレビューしてください。以下の観点から詳細に分析し、具体的な改善提案を行ってください：
+Conduct a comprehensive code review of this Next.js App Router code. Analyze from the following perspectives and provide specific improvement recommendations:
 
-## 🏗️ App Router アーキテクチャ
+## 🏗️ App Router Architecture
 
-### ディレクトリ構造とファイル配置
+### Directory Structure & File Organization
 
-- app/ディレクトリの構造が適切か
-- layout.tsx、page.tsx、loading.tsx、error.tsx、not-found.tsx の配置
-- Route Groups の活用（必要に応じて）
-- Parallel Routes や Intercepting Routes の実装
+- Evaluate app/ directory structure appropriateness
+- Check layout.tsx, page.tsx, loading.tsx, error.tsx, not-found.tsx placement
+- Assess Route Groups utilization (when applicable)
+- Review Parallel Routes and Intercepting Routes implementation
 
-### Server Components と Client Components
+### Server Components vs Client Components
 
-- 'use client'ディレクティブの適切な使用
-- Server Components と Client Components の境界設計
-- Hydration Mismatch の回避
-- Interactive 要素の適切な配置
+- Verify appropriate 'use client' directive usage
+- Analyze Server/Client Components boundary design
+- Check for Hydration Mismatch prevention
+- Evaluate interactive element placement
 
-## ⚡ パフォーマンス最適化
+## ⚡ Performance Optimization
 
-### レンダリング戦略
+### Rendering Strategy
 
-- Static Generation、Dynamic Rendering、ISR の適切な選択
-- generateStaticParams()の実装
-- Dynamic Segments（[id]、[...slug]）の最適化
-- キャッシュ戦略（fetch cache、Router Cache、Full Route Cache）
+- Assess Static Generation, Dynamic Rendering, ISR selection
+- Review generateStaticParams() implementation
+- Evaluate Dynamic Segments ([id], [...slug]) optimization
+- Analyze caching strategy (fetch cache, Router Cache, Full Route Cache)
 
-### データフェッチング
+### Data Fetching
 
-- Server Components での fetch()使用
-- データ取得の並列化（Promise.all 等）
-- Suspense 境界の適切な配置
-- loading.tsx と Suspense の使い分け
+- Review Server Components fetch() usage
+- Check data fetching parallelization (Promise.all, etc.)
+- Evaluate Suspense boundary placement
+- Assess loading.tsx vs Suspense usage
 
-### 最適化機能
+### Optimization Features
 
-- next/image の適切な実装（priority、sizes、alt）
-- next/font の使用
-- Dynamic Imports（lazy loading）
-- Bundle 分析対象の特定
+- Verify next/image implementation (priority, sizes, alt)
+- Check next/font usage
+- Review Dynamic Imports (lazy loading)
+- Identify bundle analysis targets
 
-## 🔒 セキュリティ
+## 🔒 Security
 
-### データ保護
+### Data Protection
 
-- 環境変数の適切な管理（NEXT*PUBLIC*\*の使い分け）
-- Server Actions での入力値検証
-- XSS 対策（dangerouslySetInnerHTML 回避）
-- 機密情報のクライアント露出チェック
+- Verify environment variable management (NEXT*PUBLIC*\* distinction)
+- Check Server Actions input validation
+- Review XSS prevention (avoid dangerouslySetInnerHTML)
+- Audit sensitive information client exposure
 
-### API・認証
+### API & Authentication
 
-- Server Actions の CSRF 対策
-- 認証状態の管理
-- 権限ベースのアクセス制御
-- セッション・JWT 管理
+- Assess Server Actions CSRF protection
+- Review authentication state management
+- Check role-based access control
+- Evaluate session/JWT management
 
-## 📝 コード品質
+## 📝 Code Quality
 
-### TypeScript 活用
+### TypeScript Utilization
 
-- コンポーネント Props 型定義
-- Server Components の型安全性
-- searchParams、params の型定義
-- カスタムフックの型定義
+- Review component Props type definitions
+- Check Server Components type safety
+- Evaluate searchParams, params type definitions
+- Assess custom hooks type definitions
 
-### Next.js 固有の実装
+### Next.js-Specific Implementation
 
-- Metadata の適切な設定（generateMetadata）
-- redirect()、notFound()の使用
-- cookies()、headers()の適切な利用
-- Server Actions の実装品質
+- Review Metadata configuration (generateMetadata)
+- Check redirect(), notFound() usage
+- Evaluate cookies(), headers() utilization
+- Assess Server Actions implementation quality
 
-### React ベストプラクティス
+### React Best Practices
 
-- コンポーネントの責務分離
-- useEffect、useState 等の適切な使用
-- メモ化（memo、useMemo、useCallback）の適切な適用
-- Error Boundary の実装
+- Review component responsibility separation
+- Check useEffect, useState appropriate usage
+- Evaluate memoization (memo, useMemo, useCallback) application
+- Assess Error Boundary implementation
 
-## 🎯 SEO・アクセシビリティ
+## 🎯 SEO & Accessibility
 
-### SEO 対応
+### SEO Implementation
 
-- メタデータの完全性（title、description、OG tags）
-- 構造化データ（JSON-LD）
-- サイトマップ生成対応
-- robots.txt の考慮
+- Check metadata completeness (title, description, OG tags)
+- Review structured data (JSON-LD)
+- Assess sitemap generation support
+- Evaluate robots.txt considerations
 
-### アクセシビリティ
+### Accessibility
 
-- セマンティック HTML 要素の使用
-- ARIA 属性の適切な実装
-- キーボードナビゲーション
-- スクリーンリーダー対応
+- Check semantic HTML element usage
+- Review ARIA attributes implementation
+- Assess keyboard navigation
+- Evaluate screen reader support
 
-## 🛠️ 開発者体験
+## 🛠️ Developer Experience
 
-### エラーハンドリング
+### Error Handling
 
-- error.tsx、global-error.tsx の実装
-- try-catch ブロックの適切な配置
-- ユーザーフレンドリーなエラー表示
-- 開発環境でのエラー情報
+- Review error.tsx, global-error.tsx implementation
+- Check try-catch block placement
+- Assess user-friendly error display
+- Evaluate development environment error information
 
-### テスタビリティ
+### Testability
 
-- コンポーネントのテスト容易性
-- Server Components のテスト戦略
-- モック化の考慮
-- E2E テスト対応
+- Assess component test feasibility
+- Review Server Components testing strategy
+- Consider mocking approaches
+- Evaluate E2E testing support
 
-## 🔧 具体的な改善提案
+## 🔧 Specific Improvement Recommendations
 
-各項目について：
+For each item, provide:
 
-1. **現在の実装の評価**
-2. **問題点の特定**
-3. **具体的な改善コード例**
-4. **改善による効果**
-5. **実装優先度（高・中・低）**
+1. **Current Implementation Assessment**
+2. **Issue Identification**
+3. **Concrete Improvement Code Examples**
+4. **Expected Benefits**
+5. **Implementation Priority** (High/Medium/Low)
 
-## 📊 全体評価
+## 📊 Overall Evaluation
 
-最後に以下の観点から総合評価を提供してください：
+Provide comprehensive assessment covering:
 
-- **コード品質スコア**（1-10 点）
-- **パフォーマンス評価**
-- **セキュリティレベル**
-- **保守性・拡張性**
-- **Next.js App Router 活用度**
+- **Code Quality Score** (1-10)
+- **Performance Evaluation**
+- **Security Level**
+- **Maintainability & Extensibility**
+- **Next.js App Router Utilization**
 
 ---
 
-**レビュー対象コード：**
+**Code to Review:**
 $ARGUMENTS
