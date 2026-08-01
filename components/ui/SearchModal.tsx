@@ -16,6 +16,7 @@ export function SearchModal({ isOpen, onClose, posts }: SearchModalProps) {
   const { query, setQuery, filteredPosts, hasQuery } = useSearch(posts);
   const [isSearching, setIsSearching] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -32,17 +33,31 @@ export function SearchModal({ isOpen, onClose, posts }: SearchModalProps) {
   }, [query, hasQuery]);
 
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
+      } else if (e.key === 'Tab' && modalRef.current) {
+        const focusable = Array.from(
+          modalRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
       return () => {
-        document.removeEventListener('keydown', handleEscape);
+        document.removeEventListener('keydown', handleKeyDown);
         document.body.style.overflow = 'unset';
       };
     }
@@ -65,6 +80,7 @@ export function SearchModal({ isOpen, onClose, posts }: SearchModalProps) {
     >
       <div className="flex items-start justify-center min-h-screen pt-16 px-4">
         <div 
+          ref={modalRef}
           className="w-full max-w-2xl liquid-panel rounded-3xl max-h-[80vh] flex flex-col animate-in slide-in-from-top-4 fade-in-0 duration-500"
           onClick={e => e.stopPropagation()}
         >

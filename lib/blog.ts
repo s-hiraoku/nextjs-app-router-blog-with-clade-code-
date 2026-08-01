@@ -122,7 +122,7 @@ TypeScriptを使用する際の重要なポイントをまとめました。
     publishedAt: new Date('2024-11-25'),
     updatedAt: new Date('2024-11-25'),
     author: sampleAuthor,
-    category: categories[0],
+    category: categories[3],
     tags: ['TypeScript', 'JavaScript', 'Best Practices'],
     featured: true
   },

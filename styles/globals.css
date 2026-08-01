@@ -114,6 +114,16 @@ body {
   background-attachment: fixed;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .liquid-bg {
+    animation: none;
+  }
+}
+
 .dark body {
   background: 
     radial-gradient(circle at 20% 10%, rgba(34, 197, 94, 0.15) 0%, transparent 20%),

@@ -46,9 +46,13 @@ export function ThemeDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const themeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setMounted(true);
+    return () => {
+      if (themeTimerRef.current) clearTimeout(themeTimerRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -93,14 +97,17 @@ export function ThemeDropdown() {
     setIsOpen(false);
     
     // 少し遅延してテーマを変更し、アニメーションをスムーズに
-    setTimeout(() => {
+    if (themeTimerRef.current) clearTimeout(themeTimerRef.current);
+    themeTimerRef.current = setTimeout(() => {
       setTheme(newTheme);
+      themeTimerRef.current = null;
     }, 150);
   };
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
+        id="theme-menu"
         onClick={() => setIsOpen(!isOpen)}
         className="p-2.5 glass rounded-xl transition-all duration-300 hover:scale-105 hover:glow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         aria-label={`テーマを選択 (現在: ${currentOption.label})`}

@@ -7,6 +7,7 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post }: BlogCardProps) {
+  const publishedAt = new Date(post.publishedAt);
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('ja-JP', {
       year: 'numeric',
@@ -61,9 +62,9 @@ export function BlogCard({ post }: BlogCardProps) {
           </span>
           <time 
             className="text-muted text-sm"
-            dateTime={post.publishedAt.toISOString()}
+            dateTime={publishedAt.toISOString()}
           >
-            {formatDate(post.publishedAt)}
+            {formatDate(publishedAt)}
           </time>
         </div>
         

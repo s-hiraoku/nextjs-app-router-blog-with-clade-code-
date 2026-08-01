@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
             <h4 className="font-semibold mb-6 text-primary">SNS</h4>
             <div className="space-y-4">
               <Link
-                href={`https://twitter.com/${siteConfig.social.twitter}`}
+                href={`https://twitter.com/${siteConfig.social.twitter.replace(/^@/, '')}`}
                 className="flex items-center space-x-3 text-secondary hover:text-primary transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900 rounded"
                 target="_blank"
                 rel="noopener noreferrer"
