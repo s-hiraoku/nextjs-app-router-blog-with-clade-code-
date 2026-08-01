@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import { siteConfig } from '@/data/site-config';
 
+const LAST_UPDATED = new Date('2025-06-15T00:00:00.000Z');
+
 export const metadata: Metadata = {
   title: '利用規約',
   description: `${siteConfig.name}の利用規約です。サービスのご利用にあたってお読みください。`,
@@ -20,7 +22,7 @@ export default function TermsPage() {
         </h1>
         
         <div className="text-sm text-gray-600 dark:text-gray-400 mb-8">
-          最終更新日: {new Date().toLocaleDateString('ja-JP', {
+          最終更新日: {LAST_UPDATED.toLocaleDateString('ja-JP', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'

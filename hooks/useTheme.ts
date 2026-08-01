@@ -42,7 +42,12 @@ export function useTheme() {
 
   // 初期化
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
+    let savedTheme: Theme | null = null;
+    try {
+      savedTheme = localStorage.getItem('theme') as Theme | null;
+    } catch {
+      // Storage can be unavailable; fall back to the system theme.
+    }
     const initialTheme = savedTheme || 'system';
     
     setTheme(initialTheme);
@@ -55,7 +60,11 @@ export function useTheme() {
     if (!mounted) return;
 
     applyTheme(theme);
-    localStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      // Keep the in-memory theme when storage is unavailable.
+    }
 
     // システムテーマの場合は、システム設定変更を監視
     if (theme === 'system') {
