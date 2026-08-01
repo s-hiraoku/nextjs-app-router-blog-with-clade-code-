@@ -115,7 +115,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body {
+  body.liquid-bg {
     background-attachment: scroll;
   }
 
