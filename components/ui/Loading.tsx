@@ -47,30 +47,30 @@ export function Loading({ size = 'md', variant = 'spinner', className = '', text
 
 export function BlogCardSkeleton() {
   return (
-    <article className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-      <div className="h-48 w-full bg-gray-300 dark:bg-gray-700 animate-pulse"></div>
+    <article className="glass-card rounded-2xl overflow-hidden animate-pulse">
+      <div className="h-56 w-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 animate-pulse"></div>
       <div className="p-6">
         <div className="flex items-center gap-2 mb-3">
           <div className="bg-gray-300 dark:bg-gray-700 rounded px-2 py-1 w-16 h-6 animate-pulse"></div>
           <div className="bg-gray-300 dark:bg-gray-700 rounded w-20 h-4 animate-pulse"></div>
         </div>
-        <div className="space-y-2 mb-3">
-          <div className="bg-gray-300 dark:bg-gray-700 rounded h-6 w-full animate-pulse"></div>
-          <div className="bg-gray-300 dark:bg-gray-700 rounded h-6 w-3/4 animate-pulse"></div>
+        <div className="space-y-3 mb-4">
+          <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-xl h-6 w-full animate-pulse"></div>
+          <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-xl h-6 w-3/4 animate-pulse"></div>
         </div>
-        <div className="space-y-2 mb-4">
-          <div className="bg-gray-300 dark:bg-gray-700 rounded h-4 w-full animate-pulse"></div>
-          <div className="bg-gray-300 dark:bg-gray-700 rounded h-4 w-full animate-pulse"></div>
-          <div className="bg-gray-300 dark:bg-gray-700 rounded h-4 w-2/3 animate-pulse"></div>
+        <div className="space-y-3 mb-6">
+          <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg h-4 w-full animate-pulse"></div>
+          <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg h-4 w-full animate-pulse"></div>
+          <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg h-4 w-2/3 animate-pulse"></div>
         </div>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gray-300 dark:bg-gray-700 rounded-full animate-pulse"></div>
-            <div className="bg-gray-300 dark:bg-gray-700 rounded w-16 h-4 animate-pulse"></div>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-full animate-pulse"></div>
+            <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-lg w-20 h-4 animate-pulse"></div>
           </div>
-          <div className="flex gap-1">
-            <div className="bg-gray-300 dark:bg-gray-700 rounded w-12 h-6 animate-pulse"></div>
-            <div className="bg-gray-300 dark:bg-gray-700 rounded w-12 h-6 animate-pulse"></div>
+          <div className="flex gap-2">
+            <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-full w-16 h-6 animate-pulse"></div>
+            <div className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 rounded-full w-16 h-6 animate-pulse"></div>
           </div>
         </div>
       </div>

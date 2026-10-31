@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { Post } from '@/types/blog';
 
-export function useSearch(posts: Post[]) {
+export function useSearch(posts: Post[] = []) {
   const [query, setQuery] = useState('');
 
   const filteredPosts = useMemo(() => {

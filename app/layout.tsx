@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import Header from "@/components/layout/Header";
@@ -64,9 +65,7 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+        <Script id="theme-init" strategy="beforeInteractive">{`
               (function() {
                 try {
                   var theme = localStorage.getItem('theme');
@@ -87,12 +86,10 @@ export default function RootLayout({
                   root.style.setProperty('--initial-theme', effectiveTheme);
                 } catch (e) {}
               })();
-            `,
-          }}
-        />
+            `}</Script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col liquid-bg`}
       >
         <ErrorBoundary>
           <Header />

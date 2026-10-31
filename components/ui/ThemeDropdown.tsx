@@ -46,9 +46,13 @@ export function ThemeDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const themeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setMounted(true);
+    return () => {
+      if (themeTimerRef.current) clearTimeout(themeTimerRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -89,26 +93,29 @@ export function ThemeDropdown() {
   const currentOption = themeOptions.find(option => option.value === theme) || themeOptions[2];
 
   const handleThemeChange = (newTheme: Theme) => {
-    // レイアウトシフトを防ぐため、ドロップダウンを先に闉じる
+    // レイアウトシフトを防ぐため、ドロップダウンを先に閉じる
     setIsOpen(false);
     
     // 少し遅延してテーマを変更し、アニメーションをスムーズに
-    setTimeout(() => {
+    if (themeTimerRef.current) clearTimeout(themeTimerRef.current);
+    themeTimerRef.current = setTimeout(() => {
       setTheme(newTheme);
+      themeTimerRef.current = null;
     }, 150);
   };
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
+        id="theme-menu"
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        className="p-2.5 glass rounded-xl transition-all duration-300 hover:scale-105 hover:glow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         aria-label={`テーマを選択 (現在: ${currentOption.label})`}
         aria-expanded={isOpen}
         aria-haspopup="true"
         title={currentOption.label}
       >
-        <span className="text-gray-700 dark:text-gray-300">
+        <span className="text-secondary hover:text-primary transition-all duration-300">
           {currentOption.icon}
         </span>
       </button>
@@ -123,16 +130,16 @@ export function ThemeDropdown() {
           />
           
           {/* ドロップダウンメニュー */}
-          <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50 transform origin-top-right transition-all duration-150 scale-100 opacity-100 animate-in slide-in-from-top-2 fade-in-0">
+          <div className="absolute top-full right-0 mt-3 w-52 glass-card rounded-2xl py-2 z-50 transform origin-top-right transition-all duration-300 scale-100 opacity-100 animate-in slide-in-from-top-2 fade-in-0">
             <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="theme-menu">
               {themeOptions.map((option) => (
                 <button
                   key={option.value}
                   onClick={() => handleThemeChange(option.value)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700 ${
+                  className={`w-full flex items-center gap-3 px-4 py-3 text-sm text-left rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none ${
                     theme === option.value
-                      ? 'bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300'
-                      : 'text-gray-700 dark:text-gray-300'
+                      ? 'selected-theme-item'
+                      : 'text-primary hover:bg-gray-100/50 dark:hover:bg-white/10'
                   }`}
                   role="menuitem"
                   aria-label={`テーマを${option.label}に変更`}
@@ -141,7 +148,7 @@ export function ThemeDropdown() {
                   <span>{option.label}</span>
                   {theme === option.value && (
                     <svg 
-                      className="w-4 h-4 ml-auto text-blue-600 dark:text-blue-400" 
+                      className="w-4 h-4 ml-auto selected-theme-icon" 
                       fill="currentColor" 
                       viewBox="0 0 20 20"
                       aria-hidden="true"
